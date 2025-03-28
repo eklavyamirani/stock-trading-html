@@ -1,0 +1,54 @@
+.results-display .results-summary {
+    font-size: 1.05em;
+    color: #555;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.results-display .metrics-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.results-display .metrics-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1em;
+}
+.results-display .metrics-list li:last-child {
+    border-bottom: none;
+}
+
+.results-display .metrics-list strong {
+    color: #333;
+    margin-right: 15px;
+    font-weight: 500; /* Slightly less bold */
+}
+
+.results-display .metrics-list span {
+    font-weight: 600; /* Make values stand out */
+    text-align: right;
+}
+
+/* Color coding for returns and drawdown */
+.results-display .metrics-list .positive span {
+    color: #28a745; /* Green */
+}
+.results-display .metrics-list .negative span {
+    color: #dc3545; /* Red */
+}
+.results-display .metrics-list .warning span { /* For moderately negative drawdown */
+    color: #ffc107; /* Amber */
+}
+
+.results-display .results-disclaimer {
+    font-size: 0.85em;
+    color: #6c757d; /* Muted grey */
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+}

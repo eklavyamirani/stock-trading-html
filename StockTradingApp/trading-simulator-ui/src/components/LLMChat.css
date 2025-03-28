@@ -1,0 +1,115 @@
+.llm-chat .guide-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.llm-chat .chat-history {
+    height: 350px; /* Adjust height as needed */
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9fafb; /* Very light grey */
+    border-radius: 6px;
+    line-height: 1.5;
+}
+
+.llm-chat .chat-message {
+    margin-bottom: 12px;
+    max-width: 90%; /* Prevent messages from spanning full width */
+    clear: both; /* Ensure messages don't overlap floats */
+    word-wrap: break-word; /* Break long words */
+}
+.llm-chat .chat-message p {
+    margin: 0 0 5px 0; /* Space between paragraphs within a message */
+}
+.llm-chat .chat-message p:last-child {
+    margin-bottom: 0;
+}
+
+
+.llm-chat .user-message {
+    text-align: right;
+    float: right; /* Align user messages to the right */
+}
+.llm-chat .user-message p {
+    background-color: #dbeafe; /* Light blue background for user */
+    color: #1e40af; /* Darker blue text */
+    padding: 8px 12px;
+    border-radius: 12px 12px 0 12px; /* Rounded corners */
+    display: inline-block; /* Fit content */
+    text-align: left; /* Align text left within bubble */
+}
+
+.llm-chat .assistant-message {
+    text-align: left;
+     float: left; /* Align assistant messages to the left */
+}
+.llm-chat .assistant-message p {
+    background-color: #e5e7eb; /* Light grey background for assistant */
+    color: #374151; /* Dark grey text */
+    padding: 8px 12px;
+    border-radius: 12px 12px 12px 0; /* Rounded corners */
+    display: inline-block; /* Fit content */
+}
+
+/* Loading indicator */
+.loading-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: currentColor; /* Inherit color from parent (.assistant-message p) */
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+
+.llm-chat .chat-input-area {
+    display: flex;
+    flex-direction: column; /* Stack textarea and buttons */
+    gap: 10px;
+}
+
+.llm-chat textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 70px; /* Slightly taller textarea */
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: inherit; /* Use same font as body */
+    resize: vertical; /* Allow vertical resize */
+     transition: border-color 0.2s ease;
+}
+.llm-chat textarea:focus {
+     border-color: #3a6ea5;
+     outline: none;
+     box-shadow: 0 0 0 2px rgba(58, 110, 165, 0.2);
+}
+.llm-chat textarea:disabled {
+     background-color: #e9ecef;
+     cursor: not-allowed;
+}
+
+
+.llm-chat .chat-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+}
+
+.llm-chat .error-message { /* Reuse error message style */
+    font-size: 0.9em;
+    padding: 8px 12px !important; /* Override padding if needed */
+}
+

@@ -1,0 +1,44 @@
+# Standard VS/dotnet cache and settings files
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# Build results
+[Rr]elease/
+[Dd]ebug/
+artifacts/
+testresults/
+
+# Rider specific
+.idea/
+*.idea.*
+
+# User Secrets
+**/secrets.json
+
+# Environment settings that might contain secrets
+appsettings.*.json
+!appsettings.Template.json # Example: Keep template files
+
+# Publish artifacts
+publish/
+*.Publish.xml
+
+# Tooling
+tools/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Optional: Log files
+*.log
+logs/
+
+# Optional: Local databases (if using SQLite etc.)
+*.db
+*.db-journal
