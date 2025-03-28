@@ -49,7 +49,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
         };
         fetchStrategies();
         return () => { isMounted = false; }; // Cleanup function
-    }, []); // Empty dependency array means run once on mount
+    }, [selectedStrategy]); // Added selectedStrategy to dependency array
 
     // Update strategy description when selectedStrategy or availableStrategies changes
     useEffect(() => {
@@ -58,8 +58,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
     }, [selectedStrategy, availableStrategies]);
 
     // --- Event Handlers ---
-
-    const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string | number>>) =>
+    // Handler specifically for string-only inputs
+    const handleStringInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) =>
         (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setter(e.target.value);
         setValidationError(''); // Clear validation error on input change
@@ -75,7 +75,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
     };
 
     // Validate inputs before running backtest
-    const validateInputs = (): boolean => {
+    const validateInputs = useCallback((): boolean => {
         if (!ticker.trim()) {
             setValidationError('Ticker symbol cannot be empty.');
             return false;
@@ -98,8 +98,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
         }
         setValidationError(''); // Clear error if validation passes
         return true;
-    };
-
+    }, [ticker, startDate, endDate, initialCapital, selectedStrategy]); // Add dependencies for validateInputs
 
     // Handle backtest execution submit
     const handleRunBacktest = useCallback(async (event: React.FormEvent) => {
@@ -128,8 +127,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
             console.error("Backtest API call failed:", error);
             onBacktestComplete(null, error as ApiError); // Pass the structured API error
         }
-    }, [ticker, startDate, endDate, selectedStrategy, initialCapital, isLoading, onBacktestStart, onBacktestComplete]); // Include all dependencies
-
+    }, [ticker, startDate, endDate, selectedStrategy, initialCapital, isLoading, onBacktestStart, onBacktestComplete, validateInputs]); // Added validateInputs
 
     // --- Render ---
     return (
@@ -147,7 +145,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
                     id="ticker"
                     type="text"
                     value={ticker}
-                    onChange={handleInputChange(setTicker)}
+                    onChange={handleStringInputChange(setTicker)}
                     placeholder="e.g., AAPL, ^GSPC"
                     disabled={isLoading}
                     required // Basic HTML5 validation
@@ -164,7 +162,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
                         id="start-date"
                         type="date"
                         value={startDate}
-                        onChange={handleInputChange(setStartDate)}
+                        onChange={handleStringInputChange(setStartDate)}
                         disabled={isLoading}
                         required
                         max={endDate} // Basic HTML5 validation constraint
@@ -177,7 +175,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
                         id="end-date"
                         type="date"
                         value={endDate}
-                        onChange={handleInputChange(setEndDate)}
+                        onChange={handleStringInputChange(setEndDate)}
                         disabled={isLoading}
                         required
                         min={startDate} // Basic HTML5 validation constraint
@@ -213,7 +211,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onBacktestStart, onBacktest
                 <select
                     id="strategy"
                     value={selectedStrategy}
-                    onChange={handleInputChange(setSelectedStrategy)}
+                    onChange={handleStringInputChange(setSelectedStrategy)}
                     disabled={isLoading || availableStrategies.length === 0 || !!fetchStrategiesError}
                     required
                     aria-describedby={validationError && validationError.includes('strategy') ? 'strategy-error' : undefined}

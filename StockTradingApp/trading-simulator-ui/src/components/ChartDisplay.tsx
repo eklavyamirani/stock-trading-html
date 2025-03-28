@@ -40,9 +40,16 @@ const formatChartData = (dataPoints: ChartDataPoint[]) => {
     }));
 };
 
-
 const ChartDisplay: React.FC<ChartDisplayProps> = ({ results }) => {
     const chartRef = useRef<ChartJS<'line'>>(null);
+
+    // Destroy previous chart instance when results change - Moved before conditional return
+    useEffect(() => {
+        const chart = chartRef.current;
+        return () => {
+            chart?.destroy();
+        };
+    }, [results]); // Dependency on results ensures cleanup when new results arrive
 
     if (!results || !results.portfolioValueHistory || !results.benchmarkValueHistory) {
         return <div className="chart-display card"><p>Chart data is unavailable.</p></div>;
@@ -179,14 +186,6 @@ const ChartDisplay: React.FC<ChartDisplayProps> = ({ results }) => {
             intersect: false,
         },
     };
-
-    // Destroy previous chart instance when results change
-     useEffect(() => {
-        const chart = chartRef.current;
-        return () => {
-            chart?.destroy();
-        };
-    }, [results]); // Dependency on results ensures cleanup when new results arrive
 
     return (
         <div className="chart-display card">

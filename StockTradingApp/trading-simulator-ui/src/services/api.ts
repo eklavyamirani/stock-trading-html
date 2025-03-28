@@ -11,7 +11,7 @@ import {
 
 // Configure base URL for the API
 // Use environment variables set by CRA build process (.env files)
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7123/api'; // Default for local dev
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api'; // Default for local dev
 console.log(`API Base URL configured to: ${API_BASE_URL}`); // Log for debugging
 
 const apiClient = axios.create({
