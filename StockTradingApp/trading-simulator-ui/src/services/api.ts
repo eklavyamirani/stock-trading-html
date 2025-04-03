@@ -18,6 +18,7 @@ const apiClient = axios.create({
     baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
+        'X-Github-Token': process.env.REACT_APP_GITHUB_TOKEN || '[NO TOKEN]', 
     },
     // Optional: Timeout configuration
     // timeout: 10000, // 10 seconds timeout

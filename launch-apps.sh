@@ -4,7 +4,7 @@
 
 # Navigate to the frontend directory and start the React app
 cd StockTradingApp/trading-simulator-ui
-npm start &
+npm i && npm start &
 
 # Navigate to the backend directory and start the .NET API
 cd ../TradingSimulatorAPI
